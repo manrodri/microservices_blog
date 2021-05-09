@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: posts
+  name: posts
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: posts
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: posts
+    spec:
+      containers:
+      - image: manrodri/posts
+        name: posts
+        resources: {}
+status: {}
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: posts
+  name: posts-svc
+spec:
+  ports:
+  - name: 4000-4000
+    port: 4000
+    protocol: TCP
+    targetPort: 4000
+  selector:
+    app: posts
+  type: ClusterIP
+status:
+  loadBalancer: {}
+

@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: event-bus
+  name: event-bus
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: event-bus
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: event-bus
+    spec:
+      containers:
+      - image: manrodri/event-bus
+        name: event-bus
+        resources: {}
+status: {}
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: event-bus
+  name: event-bus-svc
+spec:
+  ports:
+  - port: 4005
+    protocol: TCP
+    targetPort: 4005
+  selector:
+    app: event-bus
+  type: ClusterIP
+status:
+  loadBalancer: {}
+
