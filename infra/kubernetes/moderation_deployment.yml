@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: moderation
+  name: moderation
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: moderation
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: moderation
+    spec:
+      containers:
+      - image: manrodri/moderation
+        name: moderation
+        resources: {}
+status: {}
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: moderation
+  name: moderation-svc
+spec:
+  ports:
+  - port: 4003
+    protocol: TCP
+    targetPort: 4003
+  selector:
+    app: query
+  type: ClusterIP
+status:
+  loadBalancer: {}
+

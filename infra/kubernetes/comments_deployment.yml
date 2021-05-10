@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: comments
+  name: comments
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: comments
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: comments
+    spec:
+      containers:
+      - image: manrodri/comments
+        name: comments
+        resources: {}
+status: {}
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: comments
+  name: comments-svc
+spec:
+  ports:
+  - port: 4001
+    protocol: TCP
+    targetPort: 4001
+  selector:
+    app: comments
+  type: ClusterIP
+status:
+  loadBalancer: {}
+

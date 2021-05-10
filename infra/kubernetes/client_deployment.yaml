@@ -21,4 +21,42 @@ spec:
       - image: manrodri/client
         name: client
         resources: {}
+
+---
 status: {}
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: client
+  name: client
+spec:
+  ports:
+  - port: 3000
+    protocol: TCP
+    targetPort: 3000
+  selector:
+    app: client
+status:
+  loadBalancer: {}
+
+---  
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: client
+  name: client-svc
+spec:
+  ports:
+  - port: 3000
+    protocol: TCP
+    targetPort: 3000
+    nodePort: 30007
+  selector:
+    app: client
+  type: NodePort
+status:
+  loadBalancer: {}

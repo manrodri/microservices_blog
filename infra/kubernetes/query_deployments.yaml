@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: query
+  name: query
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: query
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: query
+    spec:
+      containers:
+      - image: manrodri/query
+        name: query
+        resources: {}
+status: {}
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: query
+  name: query-svc
+spec:
+  ports:
+  - port: 4002
+    protocol: TCP
+    targetPort: 4002
+  selector:
+    app: query
+  type: ClusterIP
+status:
+  loadBalancer: {}
+
